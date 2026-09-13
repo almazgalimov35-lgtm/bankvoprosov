@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
@@ -19,34 +19,13 @@ jobs:
         run: pip install openpyxl
 
       - name: Convert xlsx -> data.json
-        run: |
-          python - <<'PY'
-          import json
-          from openpyxl import load_workbook
-          FILE = "test.xlsx"
-          SHEET = "Внешняя оценка знаний"
-          wb = load_workbook(FILE, data_only=True, read_only=True)
-          ws = wb[SHEET] if SHEET in wb.sheetnames else wb.active
-          rows = []
-          for row in ws.iter_rows(min_row=2, values_only=True):
-              if not row or len(row) < 2 or not row[1]:
-                  continue
-              code = str(row[0]).strip() if len(row) > 0 and row[0] else ""
-              q = str(row[1]).strip()
-              a = str(row[2]).strip() if len(row) > 2 and row[2] else ""
-              sec = str(row[4]).strip() if len(row) > 4 and row[4] else "Без раздела"
-              rows.append([code, q, a, sec])
-          wb.close()
-          with open("data.json", "w", encoding="utf-8") as f:
-              json.dump(rows, f, ensure_ascii=False, separators=(",", ":"))
-          print("OK:", len(rows), "строк")
-          PY
+        run: python convert.py
 
       - name: Install system deps
         run: |
           sudo apt-get update
           sudo apt-get install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config \
-            zlib1g-dev libncurses5-dev libtinfo5 cmake libffi-dev libssl-dev
+            zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev
           pip install buildozer cython==0.29.36
 
       - name: Build APK
