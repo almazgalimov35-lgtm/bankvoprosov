@@ -1,21 +1,20 @@
 [app]
-title = Bank Voprosov
-package.name = bankvoprosov
-package.domain = org.test
+title = Bank
+package.name = bank
+package.domain = org.example
+
 source.dir = .
-source.include_exts = py,png,jpg,kv,atlas,xlsx
-source.include_patterns = test.xlsx
-version = 0.1
+source.include_exts = py,png,jpg,kv,atlas,json,xlsx
+
+version = 1.0
+
 requirements = python3,kivy
+
 orientation = portrait
-fullscreen = 0
-android.api = 34
-android.minapi = 24
+fullscreen = 1
+android.api = 33
+android.ndk = 25b
 android.archs = arm64-v8a
-android.permissions = READ_EXTERNAL_STORAGE
-android.accept_sdk_license = True
-android.skip_update = False
 
 [buildozer]
 log_level = 2
-warn_on_root = 0
