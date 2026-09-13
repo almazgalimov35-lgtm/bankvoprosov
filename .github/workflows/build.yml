@@ -1,4 +1,4 @@
-name: Build APK
+concurrency: name: Build APK
 
 on:
   push:
@@ -25,11 +25,10 @@ jobs:
 
       - name: Build with Buildozer
         run: |
-          yes | buildozer -v android debug
+          buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: bankvoprosov-apk
           path: bin/*.apk
-          
