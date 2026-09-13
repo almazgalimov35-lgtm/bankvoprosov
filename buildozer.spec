@@ -14,11 +14,12 @@ android.minapi = 24
 android.archs = arm64-v8a
 android.permissions = READ_EXTERNAL_STORAGE
 android.accept_sdk_license = True
-android.skip_update = True
+android.skip_update = False
 android.allow_replace = True
+android.sdk_path = /home/runner/.buildozer/android/platform/android-sdk
 p4a.branch = master
 p4a.bootstrap = sdl2
 
 [buildozer]
 log_level = 2
-warn_on_root = 0ф
+warn_on_root = 0
